@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "RoleManager";
+}
+
+<h2>RoleManager</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Registration Form</legend>
+        <ol>
+            <li>
+                <label for="RoleName">Select User:</label>
+                @Html.DropDownList("Users")
+                @Html.ValidationMessage("Users")
+            </li>
+            <li>
+                <label for="RoleName">Select Role:</label>
+                @Html.DropDownList("RoleName")
+                @Html.ValidationMessage("RoleName")
+            </li>
+        </ol>
+        <input type="button" value="Update Role" id="UpdateRole" />
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $("#UpdateRole").click(function () {
+            var Username = $("#Users option:selected").text()
+            var RoleName = $("#RoleName").val();
+            $.post('/Account/RoleManager', { username: Username, roleName: RoleName }).done(function (ddd) {
+                // $("#searchResult").html(ddd);
+                alert("Updated");
+            }).error(function () { alert("Error") });
+        });
+    </script>
+}
