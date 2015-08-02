@@ -47,7 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\SMLDBEntities.cs" />
+    <Compile Include="Migrations\201508020439458_SMLApplication.Data.cs" />
+    <Compile Include="Migrations\201508020439458_SMLApplication.Data.Designer.cs">
+      <DependentUpon>201508020439458_SMLApplication.Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Lib\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508020439458_SMLApplication.Data.resx">
+      <DependentUpon>201508020439458_SMLApplication.Data.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
