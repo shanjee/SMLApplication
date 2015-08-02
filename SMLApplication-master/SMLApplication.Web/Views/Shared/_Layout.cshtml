@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Content/themes/base/css", "~/Content/css") 
 </head>
 <body>
     <header>
@@ -25,11 +26,12 @@
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
                         <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
-                        @*@if (Roles.IsUserInRole("Admin"))
+                        <li>@Html.ActionLink("Do Bookings", "Index", "Bookings")</li>
+                        @if (Roles.IsUserInRole("Admin"))
                         {
                             <li>@Html.ActionLink("Channeling", "Index", "Channeling")</li>
                             <li>@Html.ActionLink("Role Manager", "RoleManager", "Account")</li>
-                        }*@
+                        }
 
                     </ul>
                 </nav>
@@ -51,6 +53,7 @@
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
 </body>
 </html>

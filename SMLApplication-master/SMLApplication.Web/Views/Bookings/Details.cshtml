@@ -1,0 +1,36 @@
+﻿@model SMLApplication.Data.Models.Booking
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Booking</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Doctor.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Doctor.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Patient.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Patient.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Bookingdate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Bookingdate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.BookingId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
