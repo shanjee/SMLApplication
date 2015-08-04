@@ -10,6 +10,12 @@ namespace SMLApplication.Business
 {
     public interface IChannelManager
     {
+        IList<Appointment> GetAppointments();
         IList<Appointment> GetAppointmentsByDoctorId(int doctorId);
+        IList<Appointment> GetAppointmentsByPatientId(int patientId);
+        Appointment GetAppointmentByAppointmentId(int id);
+        bool CreateAppointmentByPatientIdAndDoctorId(int patientId, int doctorId);
+        bool UpdateAppointment(int appointmentId, int patientId, int doctorId);
+        bool DeleteAppointment(int appointmentId);
     }
 }

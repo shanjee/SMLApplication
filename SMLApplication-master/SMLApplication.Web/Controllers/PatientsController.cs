@@ -7,18 +7,20 @@ using System.Web;
 using System.Web.Mvc;
 using SMLApplication.Data.Models;
 using SMLApplication.Data.DAL;
+using SMLApplication.Business;
 
 namespace SMLApplication.Web.Controllers
 {
     public class PatientsController : Controller
     {
         private SMLDBEntities db = new SMLDBEntities();
-
+        WebServiceConnector<Patient> service = new WebServiceConnector<Patient>();
         //
         // GET: /Patients/
 
         public ActionResult Index()
         {
+            var model = service.GetData();
             return View(db.Patients.ToList());
         }
 
@@ -27,6 +29,7 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
+           // var patient = service.GetData(id);
             Patient patient = db.Patients.Find(id);
             if (patient == null)
             {
@@ -51,8 +54,9 @@ namespace SMLApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Patients.Add(patient);
-                db.SaveChanges();
+                //db.Patients.Add(patient);
+                db.SaveChanges(); 
+                service.PutData(patient);
                 return RedirectToAction("Index");
             }
 
