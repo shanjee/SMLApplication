@@ -20,8 +20,8 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Index()
         {
-            var model = service.GetData();
-            return View(db.Patients.ToList());
+            var model = service.GetResult();
+            return View(model);
         }
 
         //
@@ -55,8 +55,8 @@ namespace SMLApplication.Web.Controllers
             if (ModelState.IsValid)
             {
                 //db.Patients.Add(patient);
-                db.SaveChanges(); 
-                service.PutData(patient);
+                //db.SaveChanges(); 
+                service.PutResult(patient);
                 return RedirectToAction("Index");
             }
 
