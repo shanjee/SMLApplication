@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLApplication.Business", "SMLApplication.Business\SMLApplication.Business.csproj", "{5973D779-8801-4D65-B2DB-A43490CB6B93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLApplication.ServiceFacade", "SMLApplication.ServiceFacade\SMLApplication.ServiceFacade.csproj", "{8E5FC528-5A4C-4DD8-BC75-D06350A707B0}"
@@ -8,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLApplication.Data", "SMLApplication.Data\SMLApplication.Data.csproj", "{3615E92B-E5A1-4493-9EC9-269272A6530F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLApplication.Web", "SMLApplication.Web\SMLApplication.Web.csproj", "{87172B59-2F29-473D-A1B6-21D7CE7164E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLApplication.WebServices", "SMLApplication.WebServices\SMLApplication.WebServices.csproj", "{A4754BE1-6FC7-483F-A579-1F1A3D893803}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{87172B59-2F29-473D-A1B6-21D7CE7164E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87172B59-2F29-473D-A1B6-21D7CE7164E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87172B59-2F29-473D-A1B6-21D7CE7164E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4754BE1-6FC7-483F-A579-1F1A3D893803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4754BE1-6FC7-483F-A579-1F1A3D893803}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4754BE1-6FC7-483F-A579-1F1A3D893803}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4754BE1-6FC7-483F-A579-1F1A3D893803}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
