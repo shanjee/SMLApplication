@@ -12,14 +12,14 @@ namespace SMLApplication.Business
 {
     public class WebServiceConnector<T>
     {
-        readonly string webUrl = "http://192.168.1.30:8280/loginapi/login/";
-        RestClient client = new RestClient("http://192.168.1.30:8280");
+        readonly string webUrl = "http://localhost:11737/api/patient/";
+        RestClient client = new RestClient("http://localhost:11737/api");
         
 
 
         public List<T> GetResult(int id = -1)
         {
-            string uri = "loginapi/login" + (id != -1 ? id + "/" : "");
+            string uri = "patient/" + (id != -1 ? id + "/" : "");
             var request = new RestRequest(uri, Method.GET);
             var queryResult = client.Execute<List<T>>(request).Data;
             return queryResult;
@@ -27,7 +27,7 @@ namespace SMLApplication.Business
 
         public void PutResult(T data)
         {
-            var request = new RestRequest("loginapi/login", Method.POST);
+            var request = new RestRequest("patient/", Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(data);
             client.Execute(request);
@@ -35,11 +35,22 @@ namespace SMLApplication.Business
 
         public List<T> GetData(int id=-1)
         {
-            string uri = webUrl + (id!=-1 ? id + "/" : "");
+            string uri = webUrl;
             using (HttpClient httpClient = new HttpClient())
             {
                 Task<String> response = httpClient.GetStringAsync(uri);
                 var data = JsonConvert.DeserializeObjectAsync<List<T>>(response.Result).Result;
+                return data;
+            }
+        }
+
+        public T GetDataById(int id = -1)
+        {
+            string uri = webUrl + id;
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                var data = JsonConvert.DeserializeObjectAsync<T>(response.Result).Result;
                 return data;
             }
         }

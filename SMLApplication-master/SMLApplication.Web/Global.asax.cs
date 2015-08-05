@@ -18,7 +18,7 @@ namespace SMLApplication.Web
     {
         protected void Application_Start()
         {
-            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SMLDBEntities>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SMLDBEntities>());
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

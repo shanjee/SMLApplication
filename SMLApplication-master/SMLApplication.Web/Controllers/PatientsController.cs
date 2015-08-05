@@ -20,7 +20,7 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Index()
         {
-            var model = service.GetResult();
+            var model = service.GetData();
             return View(model);
         }
 
@@ -30,7 +30,7 @@ namespace SMLApplication.Web.Controllers
         public ActionResult Details(int id = 0)
         {
            // var patient = service.GetData(id);
-            Patient patient = db.Patients.Find(id);
+            Patient patient = service.GetDataById(id);
             if (patient == null)
             {
                 return HttpNotFound();
@@ -56,7 +56,7 @@ namespace SMLApplication.Web.Controllers
             {
                 //db.Patients.Add(patient);
                 //db.SaveChanges(); 
-                service.PutResult(patient);
+                service.PutData(patient);
                 return RedirectToAction("Index");
             }
 
@@ -96,7 +96,7 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Patient patient = db.Patients.Find(id);
+            Patient patient = service.GetDataById(id);
             if (patient == null)
             {
                 return HttpNotFound();
