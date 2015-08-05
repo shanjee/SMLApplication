@@ -19,7 +19,8 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Appointments.ToList());
+            var Appointments = db.Appointments.Include(b => b.Doctor).Include(b => b.Patient);
+            return View(Appointments.ToList());
         }
 
         //
@@ -27,12 +28,12 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Appointment appointment = db.Appointments.Find(id);
-            if (appointment == null)
+            Appointment Appointment = db.Appointments.Find(id);
+            if (Appointment == null)
             {
                 return HttpNotFound();
             }
-            return View(appointment);
+            return View(Appointment);
         }
 
         //
@@ -40,6 +41,8 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name");
+            ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name");
             return View();
         }
 
@@ -47,16 +50,19 @@ namespace SMLApplication.Web.Controllers
         // POST: /Appointments/Create
 
         [HttpPost]
-        public ActionResult Create(Appointment appointment)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Appointment Appointment)
         {
             if (ModelState.IsValid)
             {
-                db.Appointments.Add(appointment);
+                db.Appointments.Add(Appointment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(appointment);
+            ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", Appointment.DoctorId);
+            ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", Appointment.PatientId);
+            return View(Appointment);
         }
 
         //
@@ -64,27 +70,32 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Appointment appointment = db.Appointments.Find(id);
-            if (appointment == null)
+            Appointment Appointment = db.Appointments.Find(id);
+            if (Appointment == null)
             {
                 return HttpNotFound();
             }
-            return View(appointment);
+            ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", Appointment.DoctorId);
+            ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", Appointment.PatientId);
+            return View(Appointment);
         }
 
         //
         // POST: /Appointments/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Appointment appointment)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Appointment Appointment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(appointment).State = EntityState.Modified;
+                db.Entry(Appointment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(appointment);
+            ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", Appointment.DoctorId);
+            ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", Appointment.PatientId);
+            return View(Appointment);
         }
 
         //
@@ -92,22 +103,23 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Appointment appointment = db.Appointments.Find(id);
-            if (appointment == null)
+            Appointment Appointment = db.Appointments.Find(id);
+            if (Appointment == null)
             {
                 return HttpNotFound();
             }
-            return View(appointment);
+            return View(Appointment);
         }
 
         //
         // POST: /Appointments/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Appointment appointment = db.Appointments.Find(id);
-            db.Appointments.Remove(appointment);
+            Appointment Appointment = db.Appointments.Find(id);
+            db.Appointments.Remove(Appointment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

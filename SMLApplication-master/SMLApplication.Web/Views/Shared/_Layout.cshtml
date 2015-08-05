@@ -26,10 +26,10 @@
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
                         <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
-                        <li>@Html.ActionLink("Do Bookings", "Index", "Bookings")</li>
+                        <li>@Html.ActionLink("e-Channeling", "Index", "Do Bookings")</li>
                         @if (Roles.IsUserInRole("Admin"))
                         {
-                            <li>@Html.ActionLink("Channeling", "Index", "Channeling")</li>
+                            @*<li>@Html.ActionLink("Channeling", "Index", "Channeling")</li>*@
                             <li>@Html.ActionLink("Role Manager", "RoleManager", "Account")</li>
                         }
 

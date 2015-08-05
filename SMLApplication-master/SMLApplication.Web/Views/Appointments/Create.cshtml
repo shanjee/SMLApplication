@@ -6,11 +6,43 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Appointment</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DoctorId, "Doctor")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DoctorId", String.Empty)
+            @Html.ValidationMessageFor(model => model.DoctorId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PatientId, "Patient")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PatientId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PatientId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AppointmentDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AppointmentDate)
+            @Html.ValidationMessageFor(model => model.AppointmentDate)
+        </div>
+
+        @*<div class="form-group input-group-sm">
+                @Html.LabelFor(model => model.Appointmentdate)
+                @Html.TextBoxFor(model => model.Appointmentdate, new { @class = "form-control datepicker", placeholder = "Enter Drop-off date here..." })
+                @Html.ValidationMessageFor(model => model.Appointmentdate)
+            </div>*@
 
         <p>
             <input type="submit" value="Create" />
@@ -24,4 +56,15 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @*<script type="text/javascript">
+            $('.datepicker').datepicker(); //Initialise any date pickers
+        </script>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#AppointmentDate').datepicker();
+        });
+    </script>
 }
+
+

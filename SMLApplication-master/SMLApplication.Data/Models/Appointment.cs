@@ -10,16 +10,12 @@ namespace SMLApplication.Data.Models
 {
     public class Appointment
     {
-        //public int Id { get; set; }
-        [Key]
-        [Column(Order = 0)]
+        public int AppointmentId { get; set; }
         public int DoctorId { get; set; }
-
-        [Key]
-        [Column(Order = 1)]
         public int PatientId { get; set; }
+        public DateTime AppointmentDate { get; set; }
 
-        public virtual ICollection<Doctor> Doctors { get; set; }
-        public virtual ICollection<Patient> Patients { get; set; }
+        public virtual Doctor Doctor { get; set; }
+        public virtual Patient Patient { get; set; }
     }
 }

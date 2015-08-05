@@ -8,8 +8,29 @@
 
 <fieldset>
     <legend>Appointment</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Doctor.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Doctor.Name)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Patient.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Patient.Name)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.AppointmentDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AppointmentDate)
+    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AppointmentId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
