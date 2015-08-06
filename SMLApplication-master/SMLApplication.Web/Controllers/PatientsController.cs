@@ -20,7 +20,7 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Index()
         {
-            var model = service.GetData();
+            var model = service.GetResult();
             return View(model);
         }
 
@@ -30,7 +30,7 @@ namespace SMLApplication.Web.Controllers
         public ActionResult Details(int id = 0)
         {
            // var patient = service.GetData(id);
-            Patient patient = service.GetDataById(id);
+            Patient patient = service.GetResultById(id);
             if (patient == null)
             {
                 return HttpNotFound();
@@ -56,7 +56,7 @@ namespace SMLApplication.Web.Controllers
             {
                 //db.Patients.Add(patient);
                 //db.SaveChanges(); 
-                service.PutData(patient);
+                service.CreateResult(patient);
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +68,7 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Patient patient = db.Patients.Find(id);
+            Patient patient = service.GetResultById(id);
             if (patient == null)
             {
                 return HttpNotFound();
@@ -84,8 +84,7 @@ namespace SMLApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(patient).State = EntityState.Modified;
-                db.SaveChanges();
+                service.UpdateResult(patient);
                 return RedirectToAction("Index");
             }
             return View(patient);
@@ -96,7 +95,7 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Patient patient = service.GetDataById(id);
+            Patient patient = service.GetResultById(id);
             if (patient == null)
             {
                 return HttpNotFound();
@@ -110,9 +109,7 @@ namespace SMLApplication.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Patient patient = db.Patients.Find(id);
-            db.Patients.Remove(patient);
-            db.SaveChanges();
+            service.DeleteResult(id);
             return RedirectToAction("Index");
         }
 

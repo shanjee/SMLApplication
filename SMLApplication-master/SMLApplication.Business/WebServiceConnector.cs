@@ -12,26 +12,56 @@ namespace SMLApplication.Business
 {
     public class WebServiceConnector<T>
     {
-        readonly string webUrl = "http://localhost:11737/api/patient/";
-        RestClient client = new RestClient("http://localhost:11737/api");
+        //readonly static string webUrl = "http://localhost:11737/api/patient/";            //web api url
+        readonly static string webUrl = "http://192.168.1.30:8280/patientapi/patient/";     //esb expoed url
+
+        RestClient client = new RestClient("http://192.168.1.30:8280/patientapi/patient");
         
 
 
-        public List<T> GetResult(int id = -1)
+        public List<T> GetResult()
         {
-            string uri = "patient/" + (id != -1 ? id + "/" : "");
+            string uri = "" ;
             var request = new RestRequest(uri, Method.GET);
             var queryResult = client.Execute<List<T>>(request).Data;
-            return queryResult;
+            return queryResult == null ? new List<T>() : queryResult;;
         }
 
-        public void PutResult(T data)
+        public T GetResultById(int id)
         {
-            var request = new RestRequest("patient/", Method.POST);
+            string uri = id + "/";
+            var request = new RestRequest(uri, Method.GET);
+            var queryResult = client.Execute<List<T>>(request).Data;
+            queryResult = queryResult == null ? new List<T>() : queryResult;
+            return queryResult.FirstOrDefault();
+        }
+
+        public void CreateResult(T data)
+        {
+            var request = new RestRequest("", Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(data);
             client.Execute(request);
         }
+
+        public void UpdateResult(T data)
+        {
+            var request = new RestRequest("", Method.PUT);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(data);
+            client.Execute(request);
+        }
+
+        public void DeleteResult(int id)
+        {
+            var request = new RestRequest(id + "/", Method.DELETE);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(id);
+            client.Execute(request);
+        }
+
+
+
 
         public List<T> GetData(int id=-1)
         {
@@ -40,7 +70,7 @@ namespace SMLApplication.Business
             {
                 Task<String> response = httpClient.GetStringAsync(uri);
                 var data = JsonConvert.DeserializeObjectAsync<List<T>>(response.Result).Result;
-                return data;
+                return data == null ? new List<T>() : data;;
             }
         }
 

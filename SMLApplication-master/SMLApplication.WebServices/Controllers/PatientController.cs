@@ -2,6 +2,7 @@
 using SMLApplication.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -35,13 +36,18 @@ namespace WebApi.Controllers
         }
 
         // PUT: api/Login/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(Patient patient)
         {
+            db.Entry(patient).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         // DELETE: api/Login/5
         public void Delete(int id)
         {
+            Patient patient = db.Patients.Find(id);
+            db.Patients.Remove(patient);
+            db.SaveChanges();
         }
     }
 }
