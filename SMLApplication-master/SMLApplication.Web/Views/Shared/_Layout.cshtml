@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Content/themes/base/css", "~/Content/css") 
+    @Scripts.Render("~/Content/themes/base/css", "~/Content/css")
 </head>
 <body>
     <header>
@@ -22,17 +22,20 @@
                 <nav>
                     <ul id="menu">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
-                        <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
-                        <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
-                        @if (Roles.IsUserInRole("Admin"))
+                        @if (Request.IsAuthenticated)
                         {
-                            @*<li>@Html.ActionLink("Channeling", "Index", "Channeling")</li>*@
-                            <li>@Html.ActionLink("Role Manager", "RoleManager", "Account")</li>
+                            <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
+                            <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
+                            <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
+                            if (Roles.IsUserInRole("Admin"))
+                            {
+                                @*<li>@Html.ActionLink("Channeling", "Index", "Channeling")</li>*@
+                                <li>@Html.ActionLink("Role Manager", "RoleManager", "Account")</li>
+                            }
                         }
 
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>
                 </nav>
             </div>
