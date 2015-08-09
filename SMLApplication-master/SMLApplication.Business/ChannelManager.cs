@@ -12,10 +12,13 @@ namespace SMLApplication.Business
     public class ChannelManager : IChannelManager
     {
         private SMLDBEntities context = new SMLDBEntities();
+        WebServiceConnector<Appointment> service = new WebServiceConnector<Appointment>();
 
         public IList<Appointment> GetAppointments()
         {
-            return context.Appointments.ToList();
+            service.Resource = "api/appointments";
+            var result = service.GetData();
+            return result;
         }
 
         public IList<Appointment> GetAppointmentsByDoctorId(int doctorId)
@@ -30,15 +33,7 @@ namespace SMLApplication.Business
 
         public bool CreateAppointmentByPatientIdAndDoctorId(int patientId, int doctorId)
         {
-            // TODO: Add insert logic here
-            Appointment appointment = new Appointment();
-
-            //TODO Get the current patient Id  from the session
-            appointment.PatientId = patientId;
-            appointment.DoctorId = doctorId;
-
-            context.Appointments.Add(appointment);
-            context.SaveChanges();
+            //var result = service.PutData();
             return true;
         }
 

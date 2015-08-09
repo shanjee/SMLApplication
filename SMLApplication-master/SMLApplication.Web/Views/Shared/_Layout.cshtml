@@ -22,17 +22,17 @@
                 <nav>
                     <ul id="menu">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        @if (Request.IsAuthenticated)
-                        {
+                        @*@if (Request.IsAuthenticated)
+                        {*@
                             <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
                             <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
                             <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
-                            if (Roles.IsUserInRole("Admin"))
-                            {
+                            @*if (Roles.IsUserInRole("Admin"))
+                            {*@
                                 @*<li>@Html.ActionLink("Channeling", "Index", "Channeling")</li>*@
                                 <li>@Html.ActionLink("Role Manager", "RoleManager", "Account")</li>
-                            }
-                        }
+                            @*}
+                        }*@
 
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>

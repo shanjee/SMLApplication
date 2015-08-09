@@ -12,12 +12,13 @@ namespace SMLApplication.Business
 {
     public class WebServiceConnector<T>
     {
-        //readonly static string webUrl = "http://localhost:11737/api/patient/";            //web api url
-        readonly static string webUrl = "http://192.168.1.30:8280/patientapi/patient/";     //esb expoed url
+        readonly static string webUrl = "http://localhost:11737/api/appointments/";            //web api url
+        //readonly static string webUrl = "http://192.168.1.30:8280/patientapi/patient/";     //esb expoed url
 
         RestClient client = new RestClient("http://192.168.1.30:8280/patientapi/patient");
         
-
+        readonly static string baseURL = "http://localhost:11737/"; //Base URL - Resource based access
+        public string Resource { get; set; }
 
         public List<T> GetResult()
         {
@@ -65,7 +66,8 @@ namespace SMLApplication.Business
 
         public List<T> GetData(int id=-1)
         {
-            string uri = webUrl;
+            //string uri = webUrl;
+            string uri = baseURL + Resource;
             using (HttpClient httpClient = new HttpClient())
             {
                 Task<String> response = httpClient.GetStringAsync(uri);

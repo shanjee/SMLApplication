@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.Entity;
 using SMLApplication.Data;
 using SMLApplication.Data.DAL;
 using SMLApplication.Data.Models;
@@ -47,7 +48,8 @@ namespace SMLApplication.WebServices.Controllers
         [HttpGet]
         public IList<Appointment> GetAppointments()
         {
-            return context.Appointments.ToList();
+            var result = context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).ToList();
+            return result;
         }
 
         [HttpGet]
@@ -61,7 +63,8 @@ namespace SMLApplication.WebServices.Controllers
         [ActionName("AppointmentsByDoctorId")]
         public IList<Appointment> GetAppointmentsByDoctorId(int Id)
         {
-            return context.Appointments.Where(r => r.DoctorId == Id).ToList();
+            var result = context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.DoctorId == Id).ToList();
+            return result;
         }
 
         // GET api/Appointments/AppointmentsByPatientId/5
@@ -69,7 +72,7 @@ namespace SMLApplication.WebServices.Controllers
         [ActionName("AppointmentsByPatientId")]
         public IList<Appointment> GetAppointmentsByPatientId(int Id)
         {
-            return context.Appointments.Where(r => r.PatientId == Id).ToList();
+            return context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.PatientId == Id).ToList();
         }
 
         // GET api/Appointments/5

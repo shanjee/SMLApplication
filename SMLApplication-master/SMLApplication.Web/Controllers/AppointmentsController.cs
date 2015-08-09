@@ -7,20 +7,23 @@ using System.Web;
 using System.Web.Mvc;
 using SMLApplication.Data.Models;
 using SMLApplication.Data.DAL;
+using SMLApplication.Business;
 
 namespace SMLApplication.Web.Controllers
 {
     public class AppointmentsController : Controller
     {
         private SMLDBEntities db = new SMLDBEntities();
+        IChannelManager channelManager = new ChannelManager();
 
         //
         // GET: /Appointments/
 
         public ActionResult Index()
         {
-            var Appointments = db.Appointments.Include(b => b.Doctor).Include(b => b.Patient);
-            return View(Appointments.ToList());
+            //var Appointments = db.Appointments.Include(b => b.Doctor).Include(b => b.Patient);
+            var model = channelManager.GetAppointments();
+            return View(model);
         }
 
         //
