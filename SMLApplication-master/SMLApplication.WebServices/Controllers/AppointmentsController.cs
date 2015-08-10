@@ -8,6 +8,7 @@ using System.Data.Entity;
 using SMLApplication.Data;
 using SMLApplication.Data.DAL;
 using SMLApplication.Data.Models;
+using System.Data;
 
 namespace SMLApplication.WebServices.Controllers
 {
@@ -53,14 +54,16 @@ namespace SMLApplication.WebServices.Controllers
         }
 
         [HttpGet]
+        [ActionName("ById")]
         public Appointment GetAppointmentByAppointmentId(int id)
         {
-            return context.Appointments.Find(id);
-        }
+            var result = context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.AppointmentId == id).FirstOrDefault(); ;
+           return result;
+        }  
 
         // GET api/Appointments/AppointmentsByDoctorId/5
         [HttpGet]
-        [ActionName("AppointmentsByDoctorId")]
+        [ActionName("ByDoctorId")]
         public IList<Appointment> GetAppointmentsByDoctorId(int Id)
         {
             var result = context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.DoctorId == Id).ToList();
@@ -69,40 +72,32 @@ namespace SMLApplication.WebServices.Controllers
 
         // GET api/Appointments/AppointmentsByPatientId/5
         [HttpGet]
-        [ActionName("AppointmentsByPatientId")]
+        [ActionName("ByPatientId")]
         public IList<Appointment> GetAppointmentsByPatientId(int Id)
         {
             return context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.PatientId == Id).ToList();
         }
 
         // GET api/Appointments/5
-        public bool CreateAppointmentByPatientIdAndDoctorId(int patientId, int doctorId)
+        public bool CreateAppointment(Appointment appointment)
         {
-            // TODO: Add insert logic here
-            Appointment appointment = new Appointment();
-
-            //TODO Get the current patient Id  from the session
-            appointment.PatientId = patientId;
-            appointment.DoctorId = doctorId;
-
             context.Appointments.Add(appointment);
             context.SaveChanges();
             return true;
         }
 
-        public bool UpdateAppointment(int appointmentId, int patientId, int doctorId)
+        public bool UpdateAppointment(Appointment appointment)
         {
-            Appointment appointment = context.Appointments.Find(appointmentId);
-            appointment.PatientId = patientId;
-            appointment.DoctorId = doctorId;
+            context.Entry(appointment).State = EntityState.Modified;
             context.SaveChanges();
 
             return true;
+
         }
 
-        public bool DeleteAppointment(int appointmentId)
+        public bool DeleteAppointment(int id)
         {
-            Appointment appointment = context.Appointments.Find(appointmentId);
+            Appointment appointment = context.Appointments.Find(id);
             context.Appointments.Remove(appointment);
             context.SaveChanges();
 

@@ -21,41 +21,49 @@ namespace SMLApplication.Business
             return result;
         }
 
+        public Appointment GetAppointmentByAppointmentId(int appointmentId)
+        {
+            service.Resource = "api/appointments/ByID/";
+            var result = service.GetDataById(1);
+            return result;
+        }
         public IList<Appointment> GetAppointmentsByDoctorId(int doctorId)
         {
             return context.Appointments.Where(r => r.DoctorId == doctorId).ToList();
-        }
-
-        public Appointment GetAppointmentByAppointmentId(int appointmentId)
-        {
-            return context.Appointments.Find(appointmentId);
-        }
-
-        public bool CreateAppointmentByPatientIdAndDoctorId(int patientId, int doctorId)
-        {
-            //var result = service.PutData();
-            return true;
         }
 
         public IList<Appointment> GetAppointmentsByPatientId(int patientId)
         {
             return context.Appointments.Where(r => r.PatientId == patientId).ToList();
         }
-        public bool UpdateAppointment(int appointmentId, int patientId, int doctorId)
+
+        public bool CreateAppointment(Appointment appointment)
         {
-            Appointment appointment = context.Appointments.Find(appointmentId);
-            appointment.PatientId = patientId;
-            appointment.DoctorId = doctorId;
-            context.SaveChanges();
+            service.Resource = "api/appointments/CreateAppointment";
+            service.CreateResult(appointment);
+            return true;
+        }
+
+        public bool UpdateAppointment(Appointment appointment)
+        {
+            service.Resource = "api/appointments/UpdateAppointment";
+            service.UpdateResult(appointment);
+            //Appointment appointment = context.Appointments.Find(appointmentId);
+            //appointment.PatientId = appointment.PatientId;
+            //appointment.DoctorId = appointment.DoctorId;
+            //appointment.AppointmentDate = appointment.DoctorId
+            //context.SaveChanges();
 
             return true;
         }
 
-        public bool DeleteAppointment(int appointmentId)
+        public bool DeleteAppointment(int id)
         {
-            Appointment appointment = context.Appointments.Find(appointmentId);
-            context.Appointments.Remove(appointment);
-            context.SaveChanges();
+            service.Resource = "api/appointments/DeleteAppointment/";
+            service.DeleteResult(id);
+            //Appointment appointment = context.Appointments.Find(appointmentId);
+            //context.Appointments.Remove(appointment);
+            //context.SaveChanges();
 
             return true;
         }

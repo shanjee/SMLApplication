@@ -31,12 +31,13 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Appointment Appointment = db.Appointments.Find(id);
-            if (Appointment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(Appointment);
+            //Appointment Appointment = db.Appointments.Find(id);
+            //if (Appointment == null)
+            //{
+            //    return HttpNotFound();
+
+            var model = channelManager.GetAppointmentByAppointmentId(1);
+            return View(model);
         }
 
         //
@@ -58,8 +59,7 @@ namespace SMLApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Appointments.Add(Appointment);
-                db.SaveChanges();
+                var result = channelManager.CreateAppointment(Appointment);
                 return RedirectToAction("Index");
             }
 
@@ -92,8 +92,10 @@ namespace SMLApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(Appointment).State = EntityState.Modified;
-                db.SaveChanges();
+                var result = channelManager.UpdateAppointment(Appointment);
+                return RedirectToAction("Index");
+                //db.Entry(Appointment).State = EntityState.Modified;
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", Appointment.DoctorId);
@@ -121,9 +123,10 @@ namespace SMLApplication.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Appointment Appointment = db.Appointments.Find(id);
-            db.Appointments.Remove(Appointment);
-            db.SaveChanges();
+            var result = channelManager.DeleteAppointment(id);
+            //Appointment Appointment = db.Appointments.Find(id);
+            //db.Appointments.Remove(Appointment);
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 
