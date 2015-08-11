@@ -39,7 +39,7 @@ namespace SMLApplication.Web.Controllers
             //{
             //    return HttpNotFound();
 
-            var model = channelManager.GetAppointmentByAppointmentId(1);
+            var model = channelManager.GetAppointmentByAppointmentId(id);
             return View(model);
         }
 
@@ -62,9 +62,9 @@ namespace SMLApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //channelManager.CreateAppointment(appointment);
-                service.Resource = "api/appointments";
-                service.CreateResult(appointment);
+                channelManager.CreateAppointment(appointment);
+                //service.Resource = "api/appointments";
+                //service.CreateResult(appointment);
                 return RedirectToAction("Index");
             }
 

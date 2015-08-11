@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 using SMLApplication.Data;
@@ -39,14 +40,16 @@ namespace SMLApplication.Business
 
         public bool CreateAppointment(Appointment appointment)
         {
-            service.Resource = "api/appointments/CreateAppointment";
+            //service.Resource = "api/appointments/CreateAppointment";
+            //service.CreateResult(appointment);
+            service.Resource = "api/appointments";
             service.CreateResult(appointment);
             return true;
         }
 
         public bool UpdateAppointment(Appointment appointment)
         {
-            service.Resource = "api/appointments/UpdateAppointment";
+            service.Resource = "api/appointments";
             service.UpdateResult(appointment);
             //Appointment appointment = context.Appointments.Find(appointmentId);
             //appointment.PatientId = appointment.PatientId;
@@ -59,7 +62,7 @@ namespace SMLApplication.Business
 
         public bool DeleteAppointment(int id)
         {
-            service.Resource = "api/appointments/DeleteAppointment/";
+            service.Resource = "api/appointments/";
             service.DeleteResult(id);
             //Appointment appointment = context.Appointments.Find(appointmentId);
             //context.Appointments.Remove(appointment);
