@@ -15,6 +15,7 @@ namespace SMLApplication.Web.Controllers
     {
         private SMLDBEntities db = new SMLDBEntities();
         IChannelManager channelManager = new ChannelManager();
+        WebServiceConnector<Appointment> service = new WebServiceConnector<Appointment>();
 
         //
         // GET: /Appointments/
@@ -23,6 +24,8 @@ namespace SMLApplication.Web.Controllers
         {
             //var Appointments = db.Appointments.Include(b => b.Doctor).Include(b => b.Patient);
             var model = channelManager.GetAppointments();
+            //service.Resource = "api/appointments";
+            //var model = service.GetResult();
             return View(model);
         }
 
@@ -55,17 +58,19 @@ namespace SMLApplication.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Appointment Appointment)
+        public ActionResult Create(Appointment appointment)
         {
             if (ModelState.IsValid)
             {
-                var result = channelManager.CreateAppointment(Appointment);
+                //channelManager.CreateAppointment(appointment);
+                service.Resource = "api/appointments";
+                service.CreateResult(appointment);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", Appointment.DoctorId);
-            ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", Appointment.PatientId);
-            return View(Appointment);
+            ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", appointment.DoctorId);
+            ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", appointment.PatientId);
+            return View(appointment);
         }
 
         //
@@ -92,8 +97,9 @@ namespace SMLApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = channelManager.UpdateAppointment(Appointment);
-                return RedirectToAction("Index");
+                service.Resource = "api/appointments";
+                service.UpdateResult(Appointment);
+                //var result = channelManager.UpdateAppointment(Appointment);
                 //db.Entry(Appointment).State = EntityState.Modified;
                 //db.SaveChanges();
                 return RedirectToAction("Index");
@@ -123,7 +129,9 @@ namespace SMLApplication.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var result = channelManager.DeleteAppointment(id);
+            service.Resource = "api/appointments";
+            service.DeleteResult(id);
+            //var result = channelManager.DeleteAppointment(id);
             //Appointment Appointment = db.Appointments.Find(id);
             //db.Appointments.Remove(Appointment);
             //db.SaveChanges();

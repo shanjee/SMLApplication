@@ -30,6 +30,7 @@ namespace WebApi.Controllers
         // POST: api/Login
         public void Post(Patient value)
         {
+            
             db.Patients.Add(value);
 
             db.SaveChanges();

@@ -14,7 +14,7 @@ namespace SMLApplication.Web.Controllers
     public class PatientsController : Controller
     {
         private SMLDBEntities db = new SMLDBEntities();
-        WebServiceConnector<Patient> service = new WebServiceConnector<Patient>();
+        WebServiceConnector<Patient> service = new WebServiceConnector<Patient>() { Resource = "api/patient/"};
         //
         // GET: /Patients/
 

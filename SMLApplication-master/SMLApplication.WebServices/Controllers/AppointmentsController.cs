@@ -79,14 +79,13 @@ namespace SMLApplication.WebServices.Controllers
         }
 
         // GET api/Appointments/5
-        public bool CreateAppointment(Appointment appointment)
+        public void Post(Appointment appointment)
         {
             context.Appointments.Add(appointment);
             context.SaveChanges();
-            return true;
         }
 
-        public bool UpdateAppointment(Appointment appointment)
+        public bool Put(Appointment appointment)
         {
             context.Entry(appointment).State = EntityState.Modified;
             context.SaveChanges();
@@ -95,7 +94,7 @@ namespace SMLApplication.WebServices.Controllers
 
         }
 
-        public bool DeleteAppointment(int id)
+        public bool Delete(int id)
         {
             Appointment appointment = context.Appointments.Find(id);
             context.Appointments.Remove(appointment);

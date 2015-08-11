@@ -23,7 +23,7 @@ namespace SMLApplication.Business
         public List<T> GetResult()
         {
             string uri = "" ;
-            var request = new RestRequest("api/patient", Method.GET);
+            var request = new RestRequest(Resource, Method.GET);
             var queryResult = client.Execute<List<T>>(request).Data;
             return queryResult == null ? new List<T>() : queryResult;;
         }

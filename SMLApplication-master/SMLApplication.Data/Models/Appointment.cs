@@ -10,6 +10,7 @@ namespace SMLApplication.Data.Models
 {
     public class Appointment
     {
+        [Key]
         public int AppointmentId { get; set; }
         public int DoctorId { get; set; }
         public int PatientId { get; set; }
