@@ -129,7 +129,7 @@ namespace SMLApplication.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            service.Resource = "api/appointments";
+            service.Resource = "api/appointments/";
             service.DeleteResult(id);
             //var result = channelManager.DeleteAppointment(id);
             //Appointment Appointment = db.Appointments.Find(id);

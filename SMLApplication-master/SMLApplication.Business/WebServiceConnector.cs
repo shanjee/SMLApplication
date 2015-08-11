@@ -30,7 +30,7 @@ namespace SMLApplication.Business
 
         public T GetResultById(int id)
         {
-            string uri = id + "/";
+            string uri = Resource + id + "/";
             var request = new RestRequest(uri, Method.GET);
             var queryResult = client.Execute<List<T>>(request).Data;
             queryResult = queryResult == null ? new List<T>() : queryResult;
