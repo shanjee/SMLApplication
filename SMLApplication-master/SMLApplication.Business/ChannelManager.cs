@@ -25,7 +25,7 @@ namespace SMLApplication.Business
         public Appointment GetAppointmentByAppointmentId(int appointmentId)
         {
             service.Resource = "api/appointments/ByID/";
-            var result = service.GetDataById(1);
+            var result = service.GetDataById(appointmentId);
             return result;
         }
         public IList<Appointment> GetAppointmentsByDoctorId(int doctorId)

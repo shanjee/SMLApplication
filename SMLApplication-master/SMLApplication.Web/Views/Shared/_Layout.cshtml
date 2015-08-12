@@ -13,7 +13,7 @@
     <header>
         <div class="content-wrapper">
             <div class="float-left">
-                 @*<p class="site-title">@Html.ActionLink("SML Hospitals", "Index", "Home")</p>*@
+                @*<p class="site-title">@Html.ActionLink("SML Hospitals", "Index", "Home")</p>*@
                 <img src="/Images/Hospital.jpg" height="75" width="216">
             </div>
             <div class="float-right">
@@ -21,19 +21,32 @@
                     @Html.Partial("_LoginPartial")
                 </section>
                 <nav>
-                    <ul id="menu">  
+                    <ul id="menu">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        @*@if (Request.IsAuthenticated)
-                        {*@
-                            <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
-                            <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
-                            <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
-                            @*if (Roles.IsUserInRole("Admin"))
-                            {*@
-                                @*<li>@Html.ActionLink("Channeling", "Index", "Channeling")</li>*@
-                                <li>@Html.ActionLink("Role Manager", "RoleManager", "Account")</li>
-                            @*}
-                        }*@
+                        @if (Request.IsAuthenticated)
+                        {
+
+                            string[] roles = Roles.GetRolesForUser();
+                            foreach (string role in roles)
+                            {
+                                if (role.Contains("Admin"))
+                                {
+                                    <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
+                                    <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
+                                    <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
+                                    <li>@Html.ActionLink("Role Manager", "RoleManager", "Account")</li>
+                                    break;
+                                }
+                                else if(role.Contains("Doctor"))
+                                {
+                                    <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
+                                }
+                                else if(role.Contains("Patient"))
+                                {
+                                    <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
+                                }
+                            }
+                        }
 
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
