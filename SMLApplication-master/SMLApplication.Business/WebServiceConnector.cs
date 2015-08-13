@@ -87,6 +87,18 @@ namespace SMLApplication.Business
             }
         }
 
+        public List<T> GetDataByName(string name)
+        {
+            //string uri = webUrl;
+            string uri = baseURL + Resource + name;
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                var data = JsonConvert.DeserializeObjectAsync<List<T>>(response.Result).Result;
+                return data == null ? new List<T>() : data; ;
+            }
+        }
+
 
 
         public void PutData(T data)

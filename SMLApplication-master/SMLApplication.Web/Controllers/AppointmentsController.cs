@@ -22,10 +22,20 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Index()
         {
-            //var Appointments = db.Appointments.Include(b => b.Doctor).Include(b => b.Patient);
-            var model = channelManager.GetAppointments();
-            //service.Resource = "api/appointments";
-            //var model = service.GetResult();
+            IList<Appointment> model;
+
+            if (User.IsInRole("Patient"))
+            {
+                model = channelManager.GetAppointmentsByPatientName(User.Identity.Name);
+            }
+            else if (User.IsInRole("Doctor"))
+            {
+                model = channelManager.GetAppointmentsByDoctorName(User.Identity.Name);
+            }
+            else
+            {
+                model = channelManager.GetAppointments();
+            }
             return View(model);
         }
 

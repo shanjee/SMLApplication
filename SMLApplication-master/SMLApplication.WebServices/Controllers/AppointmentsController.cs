@@ -64,18 +64,36 @@ namespace SMLApplication.WebServices.Controllers
         // GET api/Appointments/AppointmentsByDoctorId/5
         [HttpGet]
         [ActionName("ByDoctorId")]
-        public IList<Appointment> GetAppointmentsByDoctorId(int Id)
+        public IList<Appointment> GetAppointmentsByDoctorId(int id)
         {
-            var result = context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.DoctorId == Id).ToList();
+            var result = context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.DoctorId == id).ToList();
+            return result;
+        }
+
+        [HttpGet]
+        [ActionName("ByDoctorName")]
+        public IList<Appointment> GetAppointmentsByDoctorName(string id)
+        {
+            var result = context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.Doctor.Name == id).ToList();
+
             return result;
         }
 
         // GET api/Appointments/AppointmentsByPatientId/5
         [HttpGet]
         [ActionName("ByPatientId")]
-        public IList<Appointment> GetAppointmentsByPatientId(int Id)
+        public IList<Appointment> GetAppointmentsByPatientId(int id)
         {
-            return context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.PatientId == Id).ToList();
+            return context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.PatientId == id).ToList();
+        }
+
+        [HttpGet]
+        [ActionName("ByPatientName")]
+        public IList<Appointment> GetAppointmentsByPatientName(string id)
+        {
+            var result = context.Appointments.Include(b => b.Doctor).Include(b => b.Patient).Where(r => r.Patient.Name == id).ToList();
+
+            return result;
         }
 
         // GET api/Appointments/5

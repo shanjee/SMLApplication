@@ -28,14 +28,29 @@ namespace SMLApplication.Business
             var result = service.GetDataById(appointmentId);
             return result;
         }
+        
         public IList<Appointment> GetAppointmentsByDoctorId(int doctorId)
         {
             return context.Appointments.Where(r => r.DoctorId == doctorId).ToList();
         }
 
+        public IList<Appointment> GetAppointmentsByDoctorName(string doctorName)
+        {
+            service.Resource = "api/appointments/ByDoctorName/";
+            var result = service.GetDataByName(doctorName);
+            return result;
+        }
+
         public IList<Appointment> GetAppointmentsByPatientId(int patientId)
         {
             return context.Appointments.Where(r => r.PatientId == patientId).ToList();
+        }
+
+        public IList<Appointment> GetAppointmentsByPatientName(string patientName)
+        {
+            service.Resource = "api/appointments/ByPatientName/";
+            var result = service.GetDataByName(patientName);
+            return result;
         }
 
         public bool CreateAppointment(Appointment appointment)

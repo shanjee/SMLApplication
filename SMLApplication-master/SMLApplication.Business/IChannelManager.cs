@@ -13,7 +13,9 @@ namespace SMLApplication.Business
         IList<Appointment> GetAppointments();
         Appointment GetAppointmentByAppointmentId(int id);
         IList<Appointment> GetAppointmentsByDoctorId(int doctorId);
+        IList<Appointment> GetAppointmentsByDoctorName(string name);
         IList<Appointment> GetAppointmentsByPatientId(int patientId);
+        IList<Appointment> GetAppointmentsByPatientName(string name);
         bool CreateAppointment(Appointment appointment);
         bool UpdateAppointment(Appointment appointment);
         bool DeleteAppointment(int id);
