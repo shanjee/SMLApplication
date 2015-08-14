@@ -15,7 +15,9 @@ namespace SMLApplication.Data.Models
         public string Name { get; set; }
         public int? Age { get; set; }
         public string Address { get; set; }
+        public string SpecializationId { get; set; }
 
         public virtual ICollection<Appointment> Appointments { get; set; }
+        public virtual Specialization Specialization { get; set; }
     }
 }
