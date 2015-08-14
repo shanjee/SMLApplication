@@ -16,7 +16,7 @@ namespace SMLApplication.Web.Controllers
         private SMLDBEntities db = new SMLDBEntities();
         IChannelManager channelManager = new ChannelManager();
         WebServiceConnector<Appointment> service = new WebServiceConnector<Appointment>();
-
+        
         //
         // GET: /Appointments/
 
@@ -70,6 +70,15 @@ namespace SMLApplication.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Appointment appointment)
         {
+            if (appointment.PatientId == 0)
+            {
+                appointment.PatientId = db.Patients.Where(r => r.Name == User.Identity.Name).Select(r => r.PatientId).FirstOrDefault();
+            }
+            else if (appointment.DoctorId == 0)
+            {
+                appointment.DoctorId = db.Doctors.Where(r => r.Name == User.Identity.Name).Select(r => r.DoctorId).FirstOrDefault();
+            }
+
             if (ModelState.IsValid)
             {
                 channelManager.CreateAppointment(appointment);

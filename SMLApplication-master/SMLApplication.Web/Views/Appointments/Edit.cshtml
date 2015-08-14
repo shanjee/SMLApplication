@@ -20,7 +20,7 @@
             @Html.LabelFor(model => model.DoctorId, "Doctor")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("DoctorId", String.Empty)
+            @Html.DropDownList("DoctorId", "---Select a Doctor---")
             @Html.ValidationMessageFor(model => model.DoctorId)
         </div>
 
@@ -28,7 +28,7 @@
             @Html.LabelFor(model => model.PatientId, "Patient")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("PatientId", String.Empty)
+            @Html.DropDownList("PatientId", "---Select a Patient---")
             @Html.ValidationMessageFor(model => model.PatientId)
         </div>
 
