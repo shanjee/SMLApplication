@@ -25,26 +25,20 @@
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         @if (Request.IsAuthenticated)
                         {
-
-                            string[] roles = Roles.GetRolesForUser();
-                            foreach (string role in roles)
+                            if (this.User.IsInRole("Admin"))
                             {
-                                if (role.Contains("Admin"))
-                                {
-                                    <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
-                                    <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
-                                    <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
-                                    <li>@Html.ActionLink("Role Manager", "RoleManager", "Account")</li>
-                                    break;
-                                }
-                                else if(role.Contains("Doctor"))
-                                {
-                                    <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
-                                }
-                                else if(role.Contains("Patient"))
-                                {
-                                    <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
-                                }
+                            <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
+                            <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
+                            <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
+                            <li>@Html.ActionLink("Role Manager", "RoleManager", "Account")</li>
+                            }
+                            else if (this.User.IsInRole("Doctor"))
+                            {
+                            <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
+                            }
+                            else if (this.User.IsInRole("Patient"))
+                            {
+                            <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>
                             }
                         }
 
