@@ -15,6 +15,13 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Doctor.Name)
     </div>
+    
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Doctor.Specializations.SpecializationName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Doctor.Specializations.SpecializationName)
+    </div>
 
     <div class="display-label">
         @Html.DisplayNameFor(model => model.Patient.Name)

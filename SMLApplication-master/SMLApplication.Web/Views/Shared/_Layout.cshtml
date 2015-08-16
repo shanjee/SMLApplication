@@ -27,6 +27,7 @@
                         {
                             if (this.User.IsInRole("Admin"))
                             {
+                            <li>@Html.ActionLink("Specializations", "Index", "Specializations")</li>                        
                             <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
                             <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
                             <li>@Html.ActionLink("e-Channelling", "Index", "Appointments")</li>

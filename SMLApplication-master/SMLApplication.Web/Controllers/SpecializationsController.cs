@@ -10,112 +10,107 @@ using SMLApplication.Data.DAL;
 
 namespace SMLApplication.Web.Controllers
 {
-    public class DoctorsController : Controller
+    public class SpecializationsController : Controller
     {
         private SMLDBEntities db = new SMLDBEntities();
 
         //
-        // GET: /Doctors/
+        // GET: /Specializations/
 
         public ActionResult Index()
         {
-            var doctors = db.Doctors.Include(d => d.Specializations);
-            return View(doctors.ToList());
+            return View(db.Specializations.ToList());
         }
 
         //
-        // GET: /Doctors/Details/5
+        // GET: /Specializations/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Doctor doctor = db.Doctors.Find(id);
-            if (doctor == null)
+            Specialization specialization = db.Specializations.Find(id);
+            if (specialization == null)
             {
                 return HttpNotFound();
             }
-            return View(doctor);
+            return View(specialization);
         }
 
         //
-        // GET: /Doctors/Create
+        // GET: /Specializations/Create
 
         public ActionResult Create()
         {
-            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName");
             return View();
         }
 
         //
-        // POST: /Doctors/Create
+        // POST: /Specializations/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Doctor doctor)
+        public ActionResult Create(Specialization specialization)
         {
             if (ModelState.IsValid)
             {
-                db.Doctors.Add(doctor);
+                db.Specializations.Add(specialization);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName", doctor.SpecializationId);
-            return View(doctor);
+            return View(specialization);
         }
 
         //
-        // GET: /Doctors/Edit/5
+        // GET: /Specializations/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Doctor doctor = db.Doctors.Find(id);
-            if (doctor == null)
+            Specialization specialization = db.Specializations.Find(id);
+            if (specialization == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName", doctor.SpecializationId);
-            return View(doctor);
+            return View(specialization);
         }
 
         //
-        // POST: /Doctors/Edit/5
+        // POST: /Specializations/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Doctor doctor)
+        public ActionResult Edit(Specialization specialization)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(doctor).State = EntityState.Modified;
+                db.Entry(specialization).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName", doctor.SpecializationId);
-            return View(doctor);
+            return View(specialization);
         }
 
         //
-        // GET: /Doctors/Delete/5
+        // GET: /Specializations/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Doctor doctor = db.Doctors.Find(id);
-            if (doctor == null)
+            Specialization specialization = db.Specializations.Find(id);
+            if (specialization == null)
             {
                 return HttpNotFound();
             }
-            return View(doctor);
+            return View(specialization);
         }
 
         //
-        // POST: /Doctors/Delete/5
+        // POST: /Specializations/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Doctor doctor = db.Doctors.Find(id);
-            db.Doctors.Remove(doctor);
+            Specialization specialization = db.Specializations.Find(id);
+            db.Specializations.Remove(specialization);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

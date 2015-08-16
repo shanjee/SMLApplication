@@ -49,10 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\SMLDBEntities.cs" />
-    <Compile Include="Migrations\201508020439458_SMLApplication.Data.cs" />
-    <Compile Include="Migrations\201508020439458_SMLApplication.Data.Designer.cs">
-      <DependentUpon>201508020439458_SMLApplication.Data.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Doctor.cs" />
@@ -68,11 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Lib\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508020439458_SMLApplication.Data.resx">
-      <DependentUpon>201508020439458_SMLApplication.Data.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Migrations\SampleData.sql" />

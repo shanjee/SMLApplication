@@ -29,6 +29,13 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Address)
     </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Specializations.SpecializationName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Specializations.SpecializationName)
+    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.DoctorId }) |

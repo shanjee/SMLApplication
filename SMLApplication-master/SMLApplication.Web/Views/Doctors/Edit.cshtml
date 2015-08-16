@@ -7,6 +7,7 @@
 <h2>Edit</h2>
 
 @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -36,6 +37,14 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Address)
             @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SpecializationId, "Specialization")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SpecializationId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SpecializationId)
         </div>
 
         <p>

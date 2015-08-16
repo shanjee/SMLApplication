@@ -60,6 +60,7 @@ namespace SMLApplication.Web.Controllers
         {
             ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name");
             ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name");
+            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName");
             return View();
         }
 
@@ -70,11 +71,11 @@ namespace SMLApplication.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Appointment appointment)
         {
-            if (appointment.PatientId == 0)
+            if (User.IsInRole("Patient"))
             {
                 appointment.PatientId = db.Patients.Where(r => r.Name == User.Identity.Name).Select(r => r.PatientId).FirstOrDefault();
             }
-            else if (appointment.DoctorId == 0)
+            else if (User.IsInRole("Doctor"))
             {
                 appointment.DoctorId = db.Doctors.Where(r => r.Name == User.Identity.Name).Select(r => r.DoctorId).FirstOrDefault();
             }
@@ -88,6 +89,7 @@ namespace SMLApplication.Web.Controllers
             }
 
             ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", appointment.DoctorId);
+            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName", 0);
             ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", appointment.PatientId);
             return View(appointment);
         }
@@ -97,12 +99,13 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Appointment Appointment = db.Appointments.Find(id);
+            Appointment Appointment = channelManager.GetAppointmentByAppointmentId(id);
             if (Appointment == null)
             {
                 return HttpNotFound();
             }
             ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", Appointment.DoctorId);
+            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName", Appointment.Doctor.SpecializationId);
             ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", Appointment.PatientId);
             return View(Appointment);
         }
@@ -124,6 +127,7 @@ namespace SMLApplication.Web.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", Appointment.DoctorId);
+            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName", 0);
             ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", Appointment.PatientId);
             return View(Appointment);
         }
@@ -133,7 +137,7 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Appointment Appointment = db.Appointments.Find(id);
+            Appointment Appointment = channelManager.GetAppointmentByAppointmentId(id);
             if (Appointment == null)
             {
                 return HttpNotFound();
@@ -157,6 +161,11 @@ namespace SMLApplication.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public JsonResult GetDoctorsBySpecialization(int id)
+        {
+            var list = db.Doctors.Where(r => r.SpecializationId == id).ToList();
+            return Json(list,JsonRequestBehavior.AllowGet);
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

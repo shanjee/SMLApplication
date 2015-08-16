@@ -10,8 +10,8 @@ namespace SMLApplication.Data.Models
     public class Specialization
     {
         [Key]
-        public int SpecializtionId { get; set; }
-        public int SpecializtionName { get; set; }
-        public int Description { get; set; }
+        public int SpecializationId { get; set; }
+        public string SpecializationName { get; set; }
+        public string Description { get; set; }
     }
 }
