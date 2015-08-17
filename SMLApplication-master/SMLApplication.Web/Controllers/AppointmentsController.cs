@@ -166,6 +166,12 @@ namespace SMLApplication.Web.Controllers
             var list = db.Doctors.Where(r => r.SpecializationId == id).ToList();
             return Json(list,JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetSpecializationByDoctorID(int id)
+        {
+            var list = db.Doctors.Where(r => r.SpecializationId == id).Select(r => r.Specializations).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

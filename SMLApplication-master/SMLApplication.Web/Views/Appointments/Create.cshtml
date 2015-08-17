@@ -29,6 +29,7 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.Doctor.SpecializationId, "Specialization")
         </div>
+            
         <div class="editor-field">
 
             @Html.DropDownList("SpecializationId", "--- Select Specialization ---")
@@ -126,28 +127,48 @@
         $(document).ready(function () {
             $('#AppointmentDate').datepicker();
 
-            //$("#SpecializationId").change(function change() {
+            $("#SpecializationId").change(function change() {
 
-            //    var selectedText= $("#SpecializationId option:selected").text();
-            //    var specilaizationId = $('#SpecializationId').val()
+                var selectedText= $("#SpecializationId option:selected").text();
+                var specilaizationId = $('#SpecializationId').val()
 
-            //    //Check whether the select text item
-            //    if (!selectedText.indexOf("Select") >= 0)
-            //    {
-            //        //alert(selectedIndex);
-            //        $.getJSON("/Appointments/GetDoctorsBySpecialization/", { id: specilaizationId }, function (result) {
+                //Check whether the select text item
+                if (!selectedText.indexOf("Select") >= 0)
+                {
+                    //alert(selectedIndex);
+                    $.getJSON("/Appointments/GetDoctorsBySpecialization/", { id: specilaizationId }, function (result) {
 
-            //            var doctorDropDown = $("#DoctorId")
-            //            doctorDropDown.empty();
+                        var doctorDropDown = $("#DoctorId")
+                        doctorDropDown.empty();
 
-            //            $.each(result, function () {
-            //                doctorDropDown.append($("<option />").val(this.Id).text(this.Name));
-            //            });
-            //        });
-            //    }
-               
-            //})
+                        $.each(result, function () {
+                            doctorDropDown.append($("<option />").val(this.DoctorId).text(this.Name));
+                        });
+                    });
+                }  
+            })
 
+
+
+            $("#DoctorId").change(function change() {
+
+                var selectedText = $("#DoctorId option:selected").text();
+                var doctorId = $('#DoctorId').val()
+
+                //Check whether the select text item
+                if (!selectedText.indexOf("Select") >= 0) {
+                    //alert(selectedIndex);
+                    $.getJSON("/Appointments/GetSpecializationByDoctorID/", { id: doctorId }, function (result) {
+
+                        var specilizationDropDown = $("#SpecializationId")
+                        specilizationDropDown.empty();
+
+                        $.each(result, function () {
+                            specilizationDropDown.append($("<option />").val(this.SpecializationId).text(this.SpecializationName));
+                        });
+                    });
+                }
+            })
         });
     </script>
 }
