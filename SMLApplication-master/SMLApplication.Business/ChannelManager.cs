@@ -7,83 +7,64 @@ using System.Threading.Tasks;
 using SMLApplication.Data;
 using SMLApplication.Data.Models;
 using SMLApplication.Data.DAL;
+using SMLApplication.ServiceFacade;
 
 namespace SMLApplication.Business
 {
     public class ChannelManager : IChannelManager
     {
-        private SMLDBEntities context = new SMLDBEntities();
-        WebServiceConnector<Appointment> service = new WebServiceConnector<Appointment>();
+        //private SMLDBEntities context = new SMLDBEntities();
+        //WebServiceConnector<Appointment> service = new WebServiceConnector<Appointment>();
+        ChannellingServiceFacade channellingServiceFacade;
+
+        public ChannelManager()
+        {
+            channellingServiceFacade = new ChannellingServiceFacade();
+        }
 
         public IList<Appointment> GetAppointments()
         {
-            service.Resource = "api/appointments";
-            var result = service.GetData();
-            return result;
+            return channellingServiceFacade.GetAppointments();
         }
 
         public Appointment GetAppointmentByAppointmentId(int appointmentId)
         {
-            service.Resource = "api/appointments/ByID/";
-            var result = service.GetDataById(appointmentId);
-            return result;
+            return channellingServiceFacade.GetAppointmentByAppointmentId(appointmentId);
         }
-        
+
         public IList<Appointment> GetAppointmentsByDoctorId(int doctorId)
         {
-            return context.Appointments.Where(r => r.DoctorId == doctorId).ToList();
+            return channellingServiceFacade.GetAppointmentsByDoctorId(doctorId);
         }
 
         public IList<Appointment> GetAppointmentsByDoctorName(string doctorName)
         {
-            service.Resource = "api/appointments/ByDoctorName/";
-            var result = service.GetDataByName(doctorName);
-            return result;
+            return channellingServiceFacade.GetAppointmentsByDoctorName(doctorName);
         }
 
         public IList<Appointment> GetAppointmentsByPatientId(int patientId)
         {
-            return context.Appointments.Where(r => r.PatientId == patientId).ToList();
+            return channellingServiceFacade.GetAppointmentsByPatientId(patientId);
         }
 
         public IList<Appointment> GetAppointmentsByPatientName(string patientName)
         {
-            service.Resource = "api/appointments/ByPatientName/";
-            var result = service.GetDataByName(patientName);
-            return result;
+            return channellingServiceFacade.GetAppointmentsByPatientName(patientName);
         }
 
         public bool CreateAppointment(Appointment appointment)
         {
-            //service.Resource = "api/appointments/CreateAppointment";
-            //service.CreateResult(appointment);
-            service.Resource = "api/appointments";
-            service.CreateResult(appointment);
-            return true;
+            return channellingServiceFacade.CreateAppointment(appointment);
         }
 
         public bool UpdateAppointment(Appointment appointment)
         {
-            service.Resource = "api/appointments";
-            service.UpdateResult(appointment);
-            //Appointment appointment = context.Appointments.Find(appointmentId);
-            //appointment.PatientId = appointment.PatientId;
-            //appointment.DoctorId = appointment.DoctorId;
-            //appointment.AppointmentDate = appointment.DoctorId
-            //context.SaveChanges();
-
-            return true;
+            return channellingServiceFacade.UpdateAppointment(appointment);
         }
 
         public bool DeleteAppointment(int id)
         {
-            service.Resource = "api/appointments/";
-            service.DeleteResult(id);
-            //Appointment appointment = context.Appointments.Find(appointmentId);
-            //context.Appointments.Remove(appointment);
-            //context.SaveChanges();
-
-            return true;
+            return channellingServiceFacade.DeleteAppointment(id);
         }
 
     }

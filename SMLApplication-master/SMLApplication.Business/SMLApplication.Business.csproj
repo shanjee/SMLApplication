@@ -59,13 +59,17 @@
     <Compile Include="WebServiceConnector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SMLApplication.Data\SMLApplication.Data.csproj">
       <Project>{3615e92b-e5a1-4493-9ec9-269272a6530f}</Project>
       <Name>SMLApplication.Data</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\SMLApplication.ServiceFacade\SMLApplication.ServiceFacade.csproj">
+      <Project>{8e5fc528-5a4c-4dd8-bc75-d06350a707b0}</Project>
+      <Name>SMLApplication.ServiceFacade</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
