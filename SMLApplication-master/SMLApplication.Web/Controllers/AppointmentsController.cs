@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using SMLApplication.Data.Models;
 using SMLApplication.Data.DAL;
 using SMLApplication.Business;
+using SMLApplication.Web.Models;
 
 namespace SMLApplication.Web.Controllers
 {
@@ -58,9 +59,9 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name");
-            ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name");
-            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName");
+            ViewBag.Doctors = new SelectList(db.Doctors, "DoctorId", "Name");
+            ViewBag.Patients = new SelectList(db.Patients, "PatientId", "Name");
+            ViewBag.Specializations = new SelectList(db.Specializations, "SpecializationId", "SpecializationName");
             return View();
         }
 
@@ -69,29 +70,69 @@ namespace SMLApplication.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Appointment appointment)
+        public ActionResult Create(AppointmentsCreateViewModel appointment)
         {
-            if (User.IsInRole("Patient"))
+            if (User.IsInRole("Doctor"))
             {
-                appointment.PatientId = db.Patients.Where(r => r.Name == User.Identity.Name).Select(r => r.PatientId).FirstOrDefault();
+                appointment.doctorAppointment.DoctorId = db.Doctors.Where(r => r.Name == User.Identity.Name).Select(r => r.DoctorId).FirstOrDefault();
+                CreateAppointment(appointment.doctorAppointment);
+                //if (ModelState.IsValid)
+                //{
+                //    channelManager.CreateAppointment(appointment.doctorAppointment);
+                //    //service.Resource = "api/appointments";
+                //    //service.CreateResult(appointment);
+                //    return RedirectToAction("Index");
+                //}
             }
-            else if (User.IsInRole("Doctor"))
+            
+            else if (User.IsInRole("Patient"))
             {
-                appointment.DoctorId = db.Doctors.Where(r => r.Name == User.Identity.Name).Select(r => r.DoctorId).FirstOrDefault();
+                if (appointment.currentTab == 1)
+                {
+                    appointment.tab1Appointment.PatientId = db.Patients.Where(r => r.Name == User.Identity.Name).Select(r => r.PatientId).FirstOrDefault();
+                    //CreateAppointment(appointment.tab1Appointment);
+                    if (ModelState.IsValid)
+                    {
+                        channelManager.CreateAppointment(appointment.tab1Appointment);
+                        //service.Resource = "api/appointments";
+                        //service.CreateResult(appointment);
+                        return RedirectToAction("Index");
+                    }
+                }
+                else if (appointment.currentTab == 2)
+                {
+                    appointment.tab2Appointment.PatientId = db.Patients.Where(r => r.Name == User.Identity.Name).Select(r => r.PatientId).FirstOrDefault();
+                    appointment.tab2Appointment = new Appointment() { DoctorId = 1000, PatientId = 1000, AppointmentDate = DateTime.Now };
+                    CreateAppointment(appointment.tab2Appointment);
+                    return RedirectToAction("Index");
+
+                }
+            }
+            else if(User.IsInRole("Admin"))
+            {
+                 if (appointment.currentTab == 1)
+                 {
+                     //appointment.tab2Appointment = new Appointment() { DoctorId = 1000, PatientId = 1000, AppointmentDate = DateTime.Now };
+                    CreateAppointment(appointment.tab1Appointment);
+                     //channelManager.CreateAppointment(appointment.tab1Appointment);
+                     //    //service.Resource = "api/appointments";
+                     //    //service.CreateResult(appointment);
+                    //return RedirectToAction("Index");
+                 }
+                 else if (appointment.currentTab == 2)
+                 {
+                    //appointment.tab2Appointment = new Appointment() { DoctorId = 1000, PatientId = 1000, AppointmentDate = DateTime.Now };
+                    CreateAppointment(appointment.tab2Appointment);
+                    //return RedirectToAction("Index");
+                 }
             }
 
-            if (ModelState.IsValid)
-            {
-                channelManager.CreateAppointment(appointment);
-                //service.Resource = "api/appointments";
-                //service.CreateResult(appointment);
-                return RedirectToAction("Index");
-            }
 
-            ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", appointment.DoctorId);
-            ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName", 0);
-            ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", appointment.PatientId);
-            return View(appointment);
+            //ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", appointment.DoctorId);
+            //ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName", 0);
+            //ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", appointment.PatientId);
+            //return View(appointment);
+            return null;
         }
 
         //
@@ -172,6 +213,21 @@ namespace SMLApplication.Web.Controllers
             var list = db.Doctors.Where(r => r.DoctorId == id).Select(r => r.Specializations).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult CreateAppointment(Appointment appointment)
+        {
+            //if (ModelState.IsValid)
+            //{
+                channelManager.CreateAppointment(appointment);
+                //service.Resource = "api/appointments";
+                //service.CreateResult(appointment);
+                //return RedirectToAction("Create");
+            //}
+
+            return RedirectToAction("Index");
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

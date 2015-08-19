@@ -1,4 +1,4 @@
-﻿@model SMLApplication.Data.Models.Appointment
+﻿@model SMLApplication.Web.Models.AppointmentsCreateViewModel
 <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery-ui-1.8.24.min.js")" type="text/javascript"></script>
@@ -15,9 +15,27 @@
 
     <fieldset>
         <legend>Appointment</legend>
-        @if (this.User.IsInRole("Admin"))
-        {
 
+        @if (this.User.IsInRole("Doctor"))
+        {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.doctorAppointment.PatientId, "Patient")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("doctorAppointment.PatientId", (IEnumerable<SelectListItem>)ViewBag.Patients, "--- Select a Patient ---")
+                @Html.ValidationMessageFor(model => model.doctorAppointment.PatientId)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.doctorAppointment.AppointmentDate)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.doctorAppointment.AppointmentDate)
+                @Html.ValidationMessageFor(model => model.doctorAppointment.AppointmentDate)
+            </div>
+        }
+        else
+        {
             <div id="tabs">
 
                 <ul>
@@ -28,76 +46,150 @@
 
                 <div id="tabs-1">
 
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                         // Doctor 
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab1Appointment.DoctorId, "Doctor")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("tab1Appointment.DoctorId", (IEnumerable<SelectListItem>)ViewBag.Doctors, "--- Select a Doctor ---")
+                            @Html.ValidationMessageFor(model => model.tab1Appointment.DoctorId)
+                        </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.DoctorId, "Doctor")
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownList("DoctorId", "--- Select a Doctor ---")
-                        @Html.ValidationMessageFor(model => model.DoctorId)
-                    </div>
+                            //Specialization
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab1Appointment.Doctor.SpecializationId, "Specialization")
+                        </div>
+                        <div class="editor-field">
 
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Doctor.SpecializationId, "Specialization")
-                    </div>
+                            @Html.DropDownList("tab1Appointment.SpecializationId", (IEnumerable<SelectListItem>)ViewBag.Specializations, "--- Select Specialization ---")
+                            @Html.ValidationMessageFor(model => model.tab1Appointment.Doctor.SpecializationId)
+                        </div>
 
-                    <div class="editor-field">
+                            //Patient
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab1Appointment.PatientId, "Patient")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("tab1Appointment.PatientId", (IEnumerable<SelectListItem>)ViewBag.Patients, "--- Select a Patient ---")
+                            @Html.ValidationMessageFor(model => model.tab1Appointment.PatientId)
+                        </div>
 
-                        @Html.DropDownList("SpecializationId", "--- Select Specialization ---")
-                        @Html.ValidationMessageFor(model => model.Doctor.SpecializationId)
-                    </div>
+                            //Date
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab1Appointment.AppointmentDate)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.tab1Appointment.AppointmentDate)
+                            @Html.ValidationMessageFor(model => model.tab1Appointment.AppointmentDate)
+                        </div>
+                    }
+                    else if (this.User.IsInRole("Patient"))
+                    {
+                        // Doctor 
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab1Appointment.DoctorId, "Doctor")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("tab1Appointment.DoctorId", (IEnumerable<SelectListItem>)ViewBag.Doctors, "--- Select a Doctor ---")
+                            @Html.ValidationMessageFor(model => model.tab1Appointment.DoctorId)
+                        </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.PatientId, "Patient")
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownList("PatientId", "--- Select a Patient ---")
-                        @Html.ValidationMessageFor(model => model.PatientId)
-                    </div>
+                        //Specialization
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab1Appointment.Doctor.SpecializationId, "Specialization")
+                        </div>
+                        <div class="editor-field">
 
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.AppointmentDate)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.AppointmentDate)
-                        @Html.ValidationMessageFor(model => model.AppointmentDate)
-                    </div>
+                            @Html.DropDownList("tab1Appointment.SpecializationId", (IEnumerable<SelectListItem>)ViewBag.Specializations, "--- Select Specialization ---")
+                            @Html.ValidationMessageFor(model => model.tab1Appointment.Doctor.SpecializationId)
+                        </div>
+
+                        //Date
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab1Appointment.AppointmentDate)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.tab1Appointment.AppointmentDate)
+                            @Html.ValidationMessageFor(model => model.tab1Appointment.AppointmentDate)
+                        </div>
+                    }
+                    
                 </div>
 
                 <div id="tabs-2">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.DoctorId, "Doctor")
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownList("DoctorId", "--- Select a Doctor ---")
-                        @Html.ValidationMessageFor(model => model.DoctorId)
-                    </div>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                       
+                            // Doctor 
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab2Appointment.DoctorId, "Doctor")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("tab2Appointment.DoctorId", (IEnumerable<SelectListItem>)ViewBag.Doctors, "--- Select a Doctor ---")
+                            @Html.ValidationMessageFor(model => model.tab2Appointment.DoctorId)
+                        </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Doctor.SpecializationId, "Specialization")
-                    </div>
+                            //Specialization
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab2Appointment.Doctor.SpecializationId, "Specialization")
+                        </div>
+                        <div class="editor-field">
 
-                    <div class="editor-field">
+                            @Html.DropDownList("tab2Appointment.SpecializationId", (IEnumerable<SelectListItem>)ViewBag.Specializations, "--- Select Specialization ---")
+                            @Html.ValidationMessageFor(model => model.tab2Appointment.Doctor.SpecializationId)
+                        </div>
 
-                        @Html.DropDownList("SpecializationId", "--- Select Specialization ---")
-                        @Html.ValidationMessageFor(model => model.Doctor.SpecializationId)
-                    </div>
+                            //Patient
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab2Appointment.PatientId, "Patient")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("tab2Appointment.PatientId", (IEnumerable<SelectListItem>)ViewBag.Patients, "--- Select a Patient ---")
+                            @Html.ValidationMessageFor(model => model.tab2Appointment.PatientId)
+                        </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.PatientId, "Patient")
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownList("PatientId", "--- Select a Patient ---")
-                        @Html.ValidationMessageFor(model => model.PatientId)
-                    </div>
+                            //Date
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab2Appointment.AppointmentDate)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.tab2Appointment.AppointmentDate)
+                            @Html.ValidationMessageFor(model => model.tab2Appointment.AppointmentDate)
+                        </div>
+                    }
+                    else if (this.User.IsInRole("Patient"))
+                    {
+                        // Doctor 
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab2Appointment.DoctorId, "Doctor")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("tab2Appointment.DoctorId", (IEnumerable<SelectListItem>)ViewBag.Doctors, "--- Select a Doctor ---")
+                            @Html.ValidationMessageFor(model => model.tab2Appointment.DoctorId)
+                        </div>
 
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.AppointmentDate)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.AppointmentDate)
-                        @Html.ValidationMessageFor(model => model.AppointmentDate)
-                    </div>
+                        //Specialization
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab2Appointment.Doctor.SpecializationId, "Specialization")
+                        </div>
+                        <div class="editor-field">
+
+                            @Html.DropDownList("tab2Appointment.SpecializationId", (IEnumerable<SelectListItem>)ViewBag.Specializations, "--- Select Specialization ---")
+                            @Html.ValidationMessageFor(model => model.tab2Appointment.Doctor.SpecializationId)
+                        </div>
+
+                        //Date
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab2Appointment.AppointmentDate)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.tab2Appointment.AppointmentDate)
+                            @Html.ValidationMessageFor(model => model.tab2Appointment.AppointmentDate)
+                        </div>
+                    }
+                    
                 </div>
 
                 <div id="tabs-3">
@@ -107,63 +199,15 @@
                 </div>
 
             </div>
-
-
         }
-        else if (this.User.IsInRole("Doctor"))
-        {
-            <div class="editor-label">
-                @Html.LabelFor(model => model.PatientId, "Patient")
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("PatientId", "--- Select a Patient ---")
-                @Html.ValidationMessageFor(model => model.PatientId)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.AppointmentDate)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.AppointmentDate)
-                @Html.ValidationMessageFor(model => model.AppointmentDate)
-            </div>
-        }
-        else if (this.User.IsInRole("Patient"))
-        {
-            <div class="editor-label">
-                @Html.LabelFor(model => model.DoctorId, "Doctor")
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("DoctorId", "--- Select a Doctor ---")
-                @Html.ValidationMessageFor(model => model.DoctorId)
-            </div>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Doctor.SpecializationId, "Specialization")
-            </div>
-            <div class="editor-field">
-
-                @Html.DropDownList("SpecializationId", "--- Select specialization ---");
-                @Html.ValidationMessageFor(model => model.Doctor.SpecializationId)
-            </div>
-
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.AppointmentDate)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.AppointmentDate)
-                @Html.ValidationMessageFor(model => model.AppointmentDate)
-            </div>
-
-        }
-
-
+        
         @*<div class="form-group input-group-sm">
                 @Html.LabelFor(model => model.Appointmentdate)
                 @Html.TextBoxFor(model => model.Appointmentdate, new { @class = "form-control datepicker", placeholder = "Enter Drop-off date here..." })
                 @Html.ValidationMessageFor(model => model.Appointmentdate)
             </div>*@
-
+        @* @Html.HiddenFor(model => model.currentTab, 1)*@
+        @Html.HiddenFor(model => model.currentTab)
         <p>
             <input type="submit" value="Create" />
         </p>
@@ -183,7 +227,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#AppointmentDate').datepicker();
-
+            $("#currentTab").val(1);
             $(function () {
                 $("#tabs").tabs();
                 //$("#tabs-2").children().attr("disabled", "disabled");
@@ -196,9 +240,12 @@
 
                     if (ui.index == 0) {
                         // $("#tabs-2").empty();
+                        $("#currentTab").val(1);
                     }
                     else if (ui.index == 1) {
-                        $("#tabs-1").empty();
+                        //$("#tabs-1").empty();
+                        $("#currentTab").val(2);
+
                     }
                 }
             });
