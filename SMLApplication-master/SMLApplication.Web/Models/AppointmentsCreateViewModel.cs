@@ -10,7 +10,6 @@ namespace SMLApplication.Web.Models
     {
         public Appointment tab1Appointment { get; set; }
         public Appointment tab2Appointment { get; set; }
-        public Appointment tab3Appointment { get; set; }
         public Appointment doctorAppointment { get; set; }
         public int currentTab { get; set; }
     }

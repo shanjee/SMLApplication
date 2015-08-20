@@ -25,6 +25,7 @@
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         @if (Request.IsAuthenticated)
                         {
+                            
                             if (this.User.IsInRole("Admin"))
                             {
                             <li>@Html.ActionLink("Specializations", "Index", "Specializations")</li>                        
