@@ -197,7 +197,15 @@ namespace SMLApplication.Web.Controllers
 
         public JsonResult GetSpecializationByDoctorID(int id)
         {
-            var list = db.Doctors.Where(r => r.DoctorId == id).Select(r => r.Specializations).ToList();
+            List<Specialization> list;
+            if (id > 0)
+            {
+                list = db.Doctors.Where(r => r.DoctorId == id).Select(r => r.Specializations).ToList();
+            }
+            else
+            {
+                list = db.Doctors.Select(r => r.Specializations).ToList();
+            }
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
