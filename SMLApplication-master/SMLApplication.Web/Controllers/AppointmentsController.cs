@@ -86,11 +86,13 @@ namespace SMLApplication.Web.Controllers
                 {
                     appointmentsVM.tab1Appointment.PatientId = db.Patients.Where(r => r.Name == User.Identity.Name).Select(r => r.PatientId).FirstOrDefault();
                     appointment = appointmentsVM.tab1Appointment;
+                    RemoveModelStateKeyByTab("tab2");
                 }
                 else if (appointmentsVM.currentTab == 2)
                 {
                     appointmentsVM.tab2Appointment.PatientId = db.Patients.Where(r => r.Name == User.Identity.Name).Select(r => r.PatientId).FirstOrDefault();
                     appointment = appointmentsVM.tab2Appointment;
+                    RemoveModelStateKeyByTab("tab1");
                 }
             }
             else if (User.IsInRole("Admin"))
@@ -98,22 +100,25 @@ namespace SMLApplication.Web.Controllers
                 if (appointmentsVM.currentTab == 1)
                 {
                     appointment = appointmentsVM.tab1Appointment;
+                    RemoveModelStateKeyByTab("tab2");
                 }
                 else if (appointmentsVM.currentTab == 2)
                 {
                     appointment = appointmentsVM.tab2Appointment;
+                    RemoveModelStateKeyByTab("tab1");
                 }
             }
 
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
                 channelManager.CreateAppointment(appointment);
                 return RedirectToAction("index");
-            //}
+            }
 
-            //ViewBag.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", appointment.DoctorId);
-            //ViewBag.SpecializationId = new SelectList(db.Specializations, "SpecializationId", "SpecializationName", 0);
-            //ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "Name", appointment.PatientId);
+            ViewBag.tab1Appointment.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", appointmentsVM.tab1Appointment.DoctorId);
+            ViewBag.tab1Appointment.PatientId = new SelectList(db.Patients, "PatientId", "Name", appointmentsVM.tab1Appointment.PatientId);
+            ViewBag.tab2Appointment.DoctorId = new SelectList(db.Doctors, "DoctorId", "Name", appointmentsVM.tab2Appointment.DoctorId);
+            ViewBag.tab2Appointment.PatientId = new SelectList(db.Patients, "PatientId", "Name", appointmentsVM.tab2Appointment.PatientId);
             return View(appointmentsVM);
         }
 
@@ -196,10 +201,25 @@ namespace SMLApplication.Web.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        public void RemoveModelStateKeyByTab(string key)
+        {
+            List<string> modelStateKeys = new List<string>() { key + "Appointment.DoctorId", key + "Appointment.PatientId", key + "Appointment.AppointmentDate" };
+
+            foreach (var item in modelStateKeys)
+            {
+                if (ModelState.ContainsKey(item))
+                {
+                    ModelState[item].Errors.Clear();
+                }
+            }
+           
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+
     }
 }
