@@ -49,6 +49,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\SMLDBEntities.cs" />
+    <Compile Include="Migrations\201508230143029_DoctorFeedBack.cs" />
+    <Compile Include="Migrations\201508230143029_DoctorFeedBack.Designer.cs">
+      <DependentUpon>201508230143029_DoctorFeedBack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508230337492_patientHistory.cs" />
+    <Compile Include="Migrations\201508230337492_patientHistory.Designer.cs">
+      <DependentUpon>201508230337492_patientHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Doctor.cs" />
@@ -67,6 +75,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Migrations\SampleData.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508230143029_DoctorFeedBack.resx">
+      <DependentUpon>201508230143029_DoctorFeedBack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508230337492_patientHistory.resx">
+      <DependentUpon>201508230337492_patientHistory.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

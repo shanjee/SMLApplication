@@ -28,6 +28,14 @@
             </div>
 
             <div class="editor-label">
+                @Html.LabelFor(model => model.doctorAppointment.DoctorFeedBack, "Doctor Feedback")
+            </div>
+            <div class="editor-field">
+                @Html.TextArea("DoctorFeedback", new { rows = 10, columns = 40 })
+                @Html.ValidationMessageFor(model => model.doctorAppointment.DoctorFeedBack)
+            </div>
+
+            <div class="editor-label">
                 @Html.LabelFor(model => model.doctorAppointment.AppointmentDate)
             </div>
             <div class="editor-field">
@@ -48,7 +56,7 @@
 
                     @if (this.User.IsInRole("Admin"))
                     {
-                        // Doctor 
+                        // Doctor
                         <div class="editor-label">
                             @Html.LabelFor(model => model.tab1Appointment.DoctorId, "Doctor")
                         </div>
@@ -77,6 +85,14 @@
                             @Html.ValidationMessageFor(model => model.tab1Appointment.PatientId)
                         </div>
 
+                        //Doctor Feedback
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab1Appointment.DoctorFeedBack, "Doctor Feedback")
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextArea("tab1Appointment.DoctorFeedBack", new { rows = 10, columns = 40 })
+                            @Html.ValidationMessageFor(model => model.tab1Appointment.DoctorFeedBack)
+                        </div>
                         //Date
                         <div class="editor-label">
                             @Html.LabelFor(model => model.tab1Appointment.AppointmentDate)
@@ -88,7 +104,7 @@
                     }
                     else if (this.User.IsInRole("Patient"))
                     {
-                        // Doctor 
+                        // Doctor
                         <div class="editor-label">
                             @Html.LabelFor(model => model.tab1Appointment.DoctorId, "Doctor")
                         </div>
@@ -131,8 +147,8 @@
                             @Html.DropDownList("tab2Appointment.SpecializationId", (IEnumerable<SelectListItem>)ViewBag.Specializations, "--- Select Specialization ---")
                             @Html.ValidationMessageFor(model => model.tab2Appointment.Doctor.SpecializationId)
                         </div>
-                       
-                        // Doctor 
+
+                        // Doctor
                         <div class="editor-label">
                             @Html.LabelFor(model => model.tab2Appointment.DoctorId, "Doctor")
                         </div>
@@ -140,7 +156,14 @@
                             @Html.DropDownList("tab2Appointment.DoctorId", (IEnumerable<SelectListItem>)ViewBag.Doctors, "--- Select a Doctor ---")
                             @Html.ValidationMessageFor(model => model.tab2Appointment.DoctorId)
                         </div>
-
+                        //Doctor Feedback
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.tab2Appointment.DoctorFeedBack, "Doctor Feedback")
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextArea("tab2Appointment.DoctorFeedBack", new { rows = 10, columns = 40 })
+                            @Html.ValidationMessageFor(model => model.tab2Appointment.DoctorFeedBack)
+                        </div>
 
                         //Patient
                         <div class="editor-label">
@@ -162,7 +185,7 @@
                     }
                     else if (this.User.IsInRole("Patient"))
                     {
-                        // Doctor 
+                        // Doctor
                         <div class="editor-label">
                             @Html.LabelFor(model => model.tab2Appointment.DoctorId, "Doctor")
                         </div>
@@ -259,16 +282,16 @@
 
                 //Check whether the select text item
                 //if (!selectedText.indexOf("Select") >= 0) {
-                    //alert(selectedIndex);
-                    $.getJSON("/Appointments/GetDoctorsBySpecialization/", { id: specilaizationId }, function (result) {
+                //alert(selectedIndex);
+                $.getJSON("/Appointments/GetDoctorsBySpecialization/", { id: specilaizationId }, function (result) {
 
-                        $("#tab2Appointment_DoctorId").empty();
+                    $("#tab2Appointment_DoctorId").empty();
 
-                        $.each(result, function () {
-                            $("#tab2Appointment_DoctorId").append($("<option />").val(this.DoctorId).text(this.Name));
-                        });
-
+                    $.each(result, function () {
+                        $("#tab2Appointment_DoctorId").append($("<option />").val(this.DoctorId).text(this.Name));
                     });
+
+                });
                 //}
             })
 
@@ -292,7 +315,7 @@
                     });
                 });
 
-                
+
                 //}
             })
 
@@ -313,7 +336,7 @@
                 }
 
                 else if ($("#currentTab").val() == 2) {
-                  
+
                     var selectedTextDoctor = $("#tab2Appointment_SpecializationId option:selected").text();
                     var selectedTextPatient = $("#tab2Appointment_PatientId option:selected").text();
 

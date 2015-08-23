@@ -11,14 +11,14 @@
     <legend>Appointment</legend>
 
     <div class="display-label">
-       @Html.DisplayName("Doctor")
+        @Html.DisplayName("Doctor")
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Doctor.Name)
     </div>
 
     <div class="display-label">
-     @Html.DisplayName("Spcecialization")
+        @Html.DisplayName("Spcecialization")
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Doctor.Specializations.SpecializationName)
@@ -26,10 +26,17 @@
 
 
     <div class="display-label">
-      @Html.DisplayName("Patient")
+        @Html.DisplayName("Patient")
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Patient.Name)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayName("Doctor Feedback")
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DoctorFeedBack)
     </div>
 
     <div class="display-label">

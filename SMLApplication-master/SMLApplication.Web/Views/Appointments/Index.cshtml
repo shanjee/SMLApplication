@@ -21,6 +21,9 @@
             @Html.DisplayName("Patient")
         </th>
         <th>
+            @Html.DisplayName("Doctor Feedback")
+        </th>
+        <th>
             @Html.DisplayName("Appointment Date")
         </th>
         <th></th>
@@ -37,6 +40,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Patient.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorFeedBack)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AppointmentDate)
