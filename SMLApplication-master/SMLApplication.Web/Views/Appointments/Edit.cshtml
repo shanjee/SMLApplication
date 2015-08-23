@@ -23,14 +23,6 @@
             @Html.DropDownList("DoctorId", "---Select a Doctor---")
             @Html.ValidationMessageFor(model => model.DoctorId)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Doctor.SpecializationId, "Specialization")
-        </div>
-        <div class="editor-field">
-
-            @Html.DropDownList("SpecializationId", String.Empty)
-            @Html.ValidationMessageFor(model => model.Doctor.SpecializationId)
-        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.PatientId, "Patient")
@@ -41,7 +33,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.AppointmentDate)
+            @Html.LabelFor(model => model.AppointmentDate, "Appointment Date")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.AppointmentDate)

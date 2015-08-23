@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<SMLApplication.Data.Models.Appointment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Appointments";
 }
 
-<h2>Index</h2>
+<h2>Appointments</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,16 +12,16 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Doctor.Name)
+            @Html.DisplayName("Doctor")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Doctor.Specializations.SpecializationName)
+            @Html.DisplayName("Specialization")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Patient.Name)
+            @Html.DisplayName("Patient")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AppointmentDate)
+            @Html.DisplayName("Appointment Date")
         </th>
         <th></th>
     </tr>
