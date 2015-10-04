@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse"
+     name="PatientAPI"
+     context="/patientapi">
+   <resource methods="GET" uri-template="/patient/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get"
+                     uri-template="http://localhost:11737/api/patient/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/patient">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get" uri-template="http://localhost:11737/api/patient"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="POST" uri-template="/patient">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="post" uri-template="http://localhost:11737/api/patient"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="PUT" uri-template="/patient">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="put" uri-template="http://localhost:11737/api/patient"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="DELETE" uri-template="/patient/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="delete"
+                     uri-template="http://localhost:11737/api/patient/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+</api>

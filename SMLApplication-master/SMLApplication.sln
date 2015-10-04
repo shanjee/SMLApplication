@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLApplication.Business", "SMLApplication.Business\SMLApplication.Business.csproj", "{5973D779-8801-4D65-B2DB-A43490CB6B93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLApplication.ServiceFacade", "SMLApplication.ServiceFacade\SMLApplication.ServiceFacade.csproj", "{8E5FC528-5A4C-4DD8-BC75-D06350A707B0}"

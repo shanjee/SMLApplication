@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse"
+     name="LoginTest"
+     context="/login">
+   <resource methods="GET" url-mapping="/login123">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get" uri-template="http://localhost:15377/api/login/"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+</api>

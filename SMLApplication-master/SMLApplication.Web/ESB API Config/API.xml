@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse" name="API" context="/api">
+   <resource methods="GET" uri-template="/patient/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get"
+                     uri-template="http://localhost:11737/api/patient/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/patient">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get" uri-template="http://localhost:11737/api/patient"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="POST" uri-template="/patient">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="post" uri-template="http://localhost:11737/api/patient"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="PUT" uri-template="/patient">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="put" uri-template="http://localhost:11737/api/patient"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="DELETE" uri-template="/patient/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="delete"
+                     uri-template="http://localhost:11737/api/patient/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/specialization/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get"
+                     uri-template="http://localhost:11737/api/specialization/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/specialization">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get" uri-template="http://localhost:11737/api/specialization"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="POST" uri-template="/specialization">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="post" uri-template="http://localhost:11737/api/specialization"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="PUT" uri-template="/specialization">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="put" uri-template="http://localhost:11737/api/specialization"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="DELETE" uri-template="/specialization/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="delete"
+                     uri-template="http://localhost:11737/api/specialization/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/doctor/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get"
+                     uri-template="http://localhost:11737/api/doctor/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/doctor">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get" uri-template="http://localhost:11737/api/doctor"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="POST" uri-template="/doctor">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="post" uri-template="http://localhost:11737/api/doctor"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="PUT" uri-template="/doctor">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="put" uri-template="http://localhost:11737/api/doctor"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="DELETE" uri-template="/doctor/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="delete"
+                     uri-template="http://localhost:11737/api/doctor/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/appointments/ByID/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get"
+                     uri-template="http://localhost:11737/api/appointments/ByID/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/appointments/ByDoctorName/{name}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get"
+                     uri-template="http://localhost:11737/api/appointments/ByDoctorName/{uri.var.name}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/appointments/ByPatientName/{name}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get"
+                     uri-template="http://localhost:11737/api/appointments/ByPatientName/{uri.var.name}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/appointments">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get" uri-template="http://localhost:11737/api/appointments"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="POST" uri-template="/appointments">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="post" uri-template="http://localhost:11737/api/appointments"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="PUT" uri-template="/appointments">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="put" uri-template="http://localhost:11737/api/appointments"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="DELETE" uri-template="/appointments/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="delete"
+                     uri-template="http://localhost:11737/api/appointments/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+</api>

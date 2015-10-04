@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse"
+     name="LoginAPI"
+     context="/loginapi">
+   <resource methods="GET" uri-template="/login/{id}">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get"
+                     uri-template="http://localhost:11737/api/patient/{uri.var.id}"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="GET" uri-template="/login">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="get" uri-template="http://localhost:11737/api/patient"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+   <resource methods="POST" uri-template="/login">
+      <inSequence>
+         <send>
+            <endpoint>
+               <http method="post" uri-template="http://localhost:11737/api/patient"/>
+            </endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <send/>
+      </outSequence>
+   </resource>
+</api>
