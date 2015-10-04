@@ -7,27 +7,32 @@ using System.Web;
 using System.Web.Mvc;
 using SMLApplication.Data.Models;
 using SMLApplication.Data.DAL;
+using SMLApplication.Business;
 
 namespace SMLApplication.Web.Controllers
 {
     public class SpecializationsController : Controller
     {
         private SMLDBEntities db = new SMLDBEntities();
+        WebServiceConnector<Specialization> service = new WebServiceConnector<Specialization>() { Resource = "api/specialization/" };
+        
 
         //
         // GET: /Specializations/
 
         public ActionResult Index()
         {
-            return View(db.Specializations.ToList());
+            var model = service.GetResult();
+            return View(model);
         }
 
         //
         // GET: /Specializations/Details/5
 
         public ActionResult Details(int id = 0)
-        {
-            Specialization specialization = db.Specializations.Find(id);
+        {            
+            // var patient = service.GetData(id);
+            var specialization = service.GetResultById(id);
             if (specialization == null)
             {
                 return HttpNotFound();
@@ -52,8 +57,7 @@ namespace SMLApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Specializations.Add(specialization);
-                db.SaveChanges();
+                service.CreateResult(specialization);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +69,7 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Specialization specialization = db.Specializations.Find(id);
+            Specialization specialization = service.GetResultById(id);
             if (specialization == null)
             {
                 return HttpNotFound();
@@ -82,8 +86,7 @@ namespace SMLApplication.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(specialization).State = EntityState.Modified;
-                db.SaveChanges();
+                service.UpdateResult(specialization);
                 return RedirectToAction("Index");
             }
             return View(specialization);
@@ -94,7 +97,7 @@ namespace SMLApplication.Web.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Specialization specialization = db.Specializations.Find(id);
+            Specialization specialization = service.GetResultById(id);
             if (specialization == null)
             {
                 return HttpNotFound();
